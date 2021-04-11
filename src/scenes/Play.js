@@ -102,7 +102,7 @@ class Play extends Phaser.Scene {
 
             scoreConfig.fixedWidth = 0;
             this.clock = this.time.delayedCall(87000, () => {
-                if(this.p1Score > 500) {
+                if(this.p1Score > 300) {
                     console.log(this.p1Score);
                     this.add.text(game.config.width/2, game.config.height/2, 'NICE', scoreConfig).setOrigin(0.5);
                 } else {
