@@ -52,7 +52,6 @@ class Play extends Phaser.Scene {
             { start: 0, end: 9, first: 0}),
             frameRate: 30
         })
-
         //this.add.existing(this.p1Rocket);
         //same as line 4 in Rocket.js
 
@@ -76,17 +75,52 @@ class Play extends Phaser.Scene {
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
+         //initialize score
+         this.p1Score = 0;
+
+         //display score
+         let scoreConfig = {
+             fontFamily: 'Courier',
+             fontSize: '28px',
+             backgroundColor: '#F3B141',
+             color: 'lime',
+             align: 'right',
+             padding: {
+               top: 5,
+               bottom: 5,
+             },
+             fixedWidth: 100
+           }
+           this.scoreLeft = this.add.text(borderUISize + borderPadding, 
+             borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+             scoreConfig.fixedWidth = 0;
+            
+
+            this.gameOver = false;
+
+            scoreConfig.fixedWidth = 0;
+            this.clock = this.time.delayedCall(10000, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, '(F)ire to Restart', scoreConfig).setOrigin(0.5);
+            this.gameOver = true;
+        }, null, this);
+
     }
 
     update() {
+
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.scene.restart();
+        }
         
         this.starfield.tilePositionX -= 2;
         //this.starfield.tilePositionY -= 4;
-
-        this.p1Rocket.update();
-        this.ship1.update();
-        this.ship2.update();
-        this.ship3.update();
+        if (!this.gameOver) {
+            this.p1Rocket.update();
+            this.ship1.update();
+            this.ship2.update();
+            this.ship3.update();
+        }
 
         //when rocket touches ship
         if(this.checkCollision(this.p1Rocket, this.ship1)) {
@@ -128,6 +162,10 @@ class Play extends Phaser.Scene {
             ship.alpha = 1;                     //make ship visible again
             boom.destroy();                     //remove explosion sprite
         });
+
+        //score and repaint
+        this.p1Score += 10; //there is no ship.points???? so I'm using a number
+        this.scoreLeft.text = this.p1Score;
     }
 
 }
