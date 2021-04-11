@@ -7,16 +7,16 @@ class Menu extends Phaser.Scene {
 
     preload() {
         //audio
-        this.load.audio('sfx_select1', '/assets/pizzatheme.wav');
-        this.load.audio('sfx_select2', '/assets/goldensins.wav');
-        this.load.audio('sfx_select3', '/assets/beachwalk.wav');
-        this.load.audio('sfx_explosion1', '/assets/bruh.wav');
-        this.load.audio('sfx_explosion2', '/assets/roblox.wav');
-        this.load.audio('sfx_explosion3', '/assets/fortnite.wav');
-        this.load.audio('sfx_explosion4', '/assets/punchswift.wav');
-        this.load.audio('sfx_explosion5', '/assets/windows.wav');
-        this.load.audio('sfx_rocket', '/assets/none.wav');
-        this.load.audio('sfx_gameover', '/assets/sadspiderman.wav');
+        this.load.audio('sfx_select1', './assets/pizzatheme.wav');
+        this.load.audio('sfx_select2', './assets/goldensins.wav');
+        this.load.audio('sfx_select3', './assets/beachwalk.wav');
+        this.load.audio('sfx_explosion1', './assets/bruh.wav');
+        this.load.audio('sfx_explosion2', './assets/roblox.wav');
+        this.load.audio('sfx_explosion3', './assets/fortnite.wav');
+        this.load.audio('sfx_explosion4', './assets/punchswift.wav');
+        this.load.audio('sfx_explosion5', './assets/windows.wav');
+        this.load.audio('sfx_rocket', './assets/none.wav');
+        this.load.audio('sfx_gameover', './assets/sadspiderman.wav');
     }
 
     create() {
@@ -75,6 +75,15 @@ class Menu extends Phaser.Scene {
             game.settings = {
                 spaceshipSpeed: 4,
                 gameTimer: 45000
+            }
+
+            let song = Math.random() * 10
+            if (song > 0 && song < 4) {
+                this.sound.play('sfx_select1');
+            } else if (song > 3 && song < 8) {
+                this.sound.play('sfx_select2');
+            } else {
+                this.sound.play('sfx_select3');
             }
             //this.sound.play('');
             this.scene.start('playScene');
