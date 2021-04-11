@@ -13,6 +13,8 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        
+
         this.starfield = this.add.tileSprite(
             0,0,640,480, 'starfield'
         ).setOrigin(0,0);
@@ -82,8 +84,8 @@ class Play extends Phaser.Scene {
          let scoreConfig = {
              fontFamily: 'Courier',
              fontSize: '28px',
-             backgroundColor: '#F3B141',
-             color: 'lime',
+             backgroundColor: '#00CDE1',
+             color: '#ADFF2F',
              align: 'right',
              padding: {
                top: 5,
@@ -99,18 +101,31 @@ class Play extends Phaser.Scene {
             this.gameOver = false;
 
             scoreConfig.fixedWidth = 0;
-            this.clock = this.time.delayedCall(10000, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, '(F)ire to Restart', scoreConfig).setOrigin(0.5);
+            this.clock = this.time.delayedCall(87000, () => {
+                if(this.p1Score > 500) {
+                    console.log(this.p1Score);
+                    this.add.text(game.config.width/2, game.config.height/2, 'NICE', scoreConfig).setOrigin(0.5);
+                } else {
+                    this.add.text(game.config.width/2, game.config.height/2, 'YOU SUCK', scoreConfig).setOrigin(0.5);
+                }
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
 
     }
 
     update() {
+        // if(this.gameOver) {
+        //     this.sound.play('sfx_gameover');
+        // }
+        //I want this to play so bad but it loops and kills anyone who plays
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
+        }
+
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLeft)) {
+            this.scene.start("menuScene");
         }
         
         this.starfield.tilePositionX -= 2;
@@ -166,6 +181,22 @@ class Play extends Phaser.Scene {
         //score and repaint
         this.p1Score += 10; //there is no ship.points???? so I'm using a number
         this.scoreLeft.text = this.p1Score;
+
+        let oofsound = Math.random() * 10
+        console.log(oofsound)
+        if (oofsound > 0 && oofsound < 3) {
+            this.sound.play('sfx_explosion1');
+        } else if (oofsound > 2 && oofsound < 5) {
+            this.sound.play('sfx_explosion2');
+        } else if ( oofsound > 4 && oofsound < 7) {
+            this.sound.play('sfx_explosion3');
+        } else if ( oofsound > 6 && oofsound < 9) {
+            this.sound.play('sfx_explosion4');
+        } else {
+            this.sound.play('sfx_explosion5');
+        }
     }
+
+    
 
 }
