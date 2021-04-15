@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image('starfield', 'assets/starfield.png');
         this.load.image('rocket', 'assets/rocket.png');
+        this.load.image('timeorb', 'assets/timeorb.png');
         this.load.image('spaceship', 'assets/spaceship.png');
         this.load.spritesheet('explosion', 'assets/explosion.png', 
         {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
@@ -28,24 +29,33 @@ class Play extends Phaser.Scene {
 
         this.ship1 = new Ship(
             this,
-            100,
-            200,
+            Math.random()*(400-100) + 100,
+            Math.random()*(300-100) + 100,
             'spaceship'
         );
+        //random formula math.random()*(b-a) + a
 
         this.ship2 = new Ship(
             this,
-            300,
-            240,
+            Math.random()*(400-100) + 100,
+            Math.random()*(300-100) + 100,
             'spaceship'
         );
 
         this.ship3 = new Ship(
             this,
-            380,
-            300,
+            Math.random()*(400-100) + 100,
+            Math.random()*(300-100) + 100,
             'spaceship'
         );
+
+
+        this.timeorb1 = new TimeOrb(
+            this,
+            Math.random()*(400-100) + 100,
+            Math.random()*(300-100) + 100,
+            'timeorb'
+        )
 
         //animation configuration
         this.anims.create({
@@ -80,6 +90,9 @@ class Play extends Phaser.Scene {
          //initialize score
          this.p1Score = 0;
 
+         //initialize timepast
+         this.timePast = 0;
+
          //display score
          let scoreConfig = {
              fontFamily: 'Courier',
@@ -93,33 +106,56 @@ class Play extends Phaser.Scene {
              },
              fixedWidth: 100
            }
+           let timerConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#00CDE1',
+            color: '#ADFF2F',
+            align: 'left',
+            padding: {
+              top: 5,
+              bottom: 5,
+            },
+            fixedWidth: 70
+          }
            this.scoreLeft = this.add.text(borderUISize + borderPadding, 
              borderUISize + borderPadding*2, this.p1Score, scoreConfig);
              scoreConfig.fixedWidth = 0;
             
 
             this.gameOver = false;
+            this.timeLeft = this.add.text(borderUISize*15 + borderPadding,
+                borderUISize + borderPadding*2, 87-this.timePast, timerConfig);
+
+            // timerConfig.fixedWidth = 0;
+            // this.add.text(game.config.width/2, game.config.height/2, this.time, timerConfig).setOrigin(0.5);
+
 
             scoreConfig.fixedWidth = 0;
             this.clock = this.time.delayedCall(87000, () => {
+                this.sound.play('sfx_gameover');
                 if(this.p1Score > 300) {
                     console.log(this.p1Score);
+                    this.timeLeft.text = 0;
                     this.add.text(game.config.width/2, game.config.height/2, 'NICE', scoreConfig).setOrigin(0.5);
                 } else {
                     this.add.text(game.config.width/2, game.config.height/2, 'YOU SUCK', scoreConfig).setOrigin(0.5);
                 }
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
+            
         }, null, this);
 
     }
 
     update() {
-        // if(this.gameOver) {
-        //     this.sound.play('sfx_gameover');
-        // }
+        this.timePast += 0.00695; //60 frames per second
+        this.timeLeft.text = 87 - this.timePast;
+        if (87 - this.timePast < 0) { //once below zero, don't go into negative
+            this.timeLeft.text = 0;
+        }
         //I want this to play so bad but it loops and kills anyone who plays
-
+        //console.log(this.time);
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
         }
@@ -135,6 +171,7 @@ class Play extends Phaser.Scene {
             this.ship1.update();
             this.ship2.update();
             this.ship3.update();
+            this.timeorb1.update();
         }
 
         //when rocket touches ship
@@ -149,6 +186,10 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.p1Rocket, this.ship3)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship3);
+        }
+        if(this.checkCollisionOrb(this.p1Rocket, this.timeorb1)){
+            this.p1Rocket.reset();
+            this.timeOrbGet(this.timeorb1);
         }
         // this.checkCollision(this.p1Rocket, this.ship1);
         // this.checkCollision(this.p1Rocket, this.ship2);
@@ -166,9 +207,33 @@ class Play extends Phaser.Scene {
             }
     }
 
+    checkCollisionOrb(rocket, timeorb) {
+        if( rocket.x + rocket.width > timeorb.x && 
+            rocket.x < timeorb.x + timeorb.width &&
+            rocket.y + rocket.height    > timeorb.y && 
+            rocket.y < timeorb.y + timeorb.height) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    timeOrbGet(timeorb) {
+        timeorb.alpha = 0;
+        this.timePast -= 5;
+        let boom1 = this.add.sprite(timeorb.x, timeorb.y, 'explosion').setOrigin(0,0);
+        boom1.anims.play('explode');
+        boom1.on('animationcomplete', () => {
+            timeorb.reset();
+            timeorb.alpha = 1;
+            boom1.destroy();
+        });
+    }
+
     shipExplode(ship) {
         //temporarily hide ship
         ship.alpha = 0;
+        // this.timePast -= 1; //+ one second with every successful hit
         //create explosion sprite at ship's position
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0,0);
         boom.anims.play('explode');             //play explode animation
