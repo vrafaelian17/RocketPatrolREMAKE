@@ -5,7 +5,7 @@ class TimeOrb extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        this.x -= 6;
+        this.x -= 5;
 
         if(this.x < -this.width) {
             this.x = game.config.width;
