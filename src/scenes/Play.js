@@ -125,9 +125,9 @@ class Play extends Phaser.Scene {
             //     0,0,640,64, 'scoreweb'
             // ).setOrigin(0,-0.6);
         
-            console.log(borderUISize + borderPadding);
-            console.log(game.config.width);
-            console.log(borderUISize*2);
+            // console.log(borderUISize + borderPadding);
+            // console.log(game.config.width);
+            // console.log(borderUISize*2);
         
         //white borders
         // this.add.rectangle(0, 0, game.config.width, borderUISize, 0x00BFFF).setOrigin(0 ,0);
@@ -202,9 +202,11 @@ class Play extends Phaser.Scene {
             scoreConfig.fixedWidth = 0;
             //game.settings.gameTimer
             this.clock = this.time.delayedCall(this.keepTick, () => {
+                console.log('CREDITS: Thank you so much to LiterallyNoOne, WhiteWoods, and UserDestroyer for the background tracks!')
+                console.log('Thank you so much to David Productions and Eyes of Heaven for the SFX!')
                 this.sound.play('sfx_gameover');
                 if(this.p1Score > 300) {
-                    console.log(this.p1Score);
+                    //console.log(this.p1Score);
                     this.timeLeft.text = 0;
                     this.scoreweb = this.add.tileSprite(
                         0,0,640,64, 'web'
@@ -224,7 +226,7 @@ class Play extends Phaser.Scene {
             
         }, null, this);
 
-        console.log(this.clock);
+        //console.log(this.clock);
         
     }
 
@@ -357,7 +359,7 @@ class Play extends Phaser.Scene {
     shipExplode(ship) {
         //temporarily hide ship
         ship.alpha = 0;
-        console.log(this.clock.delay);
+        //console.log(this.clock.delay);
         // this.timePast -= 1; //+ one second with every successful hit
         //create explosion sprite at ship's position
         let boom = this.add.sprite(ship.x, ship.y, 'standhit').setOrigin(0,0);
@@ -373,7 +375,7 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score;
 
         let oofsound = Math.random() * 10
-        console.log(oofsound)
+        //console.log(oofsound)
         if (oofsound > 0 && oofsound < 3) {
             this.sound.play('sfx_explosion2');
         } else if (oofsound > 2 && oofsound < 5) {

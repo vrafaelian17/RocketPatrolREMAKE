@@ -84,9 +84,9 @@ class Menu extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/6, 'Use <- -> arrows to swim & (F) to FREE',
             menuConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + borderUISize +
-            borderPadding, "All of you, beware! He's everywhere!", menuConfig).setOrigin(0.5);
+            borderPadding, "All of you, beware! That priest could be anywhere!", menuConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/5.8  + borderUISize +
-                borderPadding, 'Press <- for Phase 1 or -> for Phase 2', menuConfig).setOrigin(0.5);
+                borderPadding, 'Hit Pucci (purple)=Extra Time|Hit MIH (white)=Extra Points', menuConfig).setOrigin(0.5);
             menuConfig.backgroundColor = '#00FF00';
             menuConfig.color = '#000';
             console.log("running?");
@@ -103,9 +103,9 @@ class Menu extends Phaser.Scene {
                 gameTimer: 60000
             }
             let song = Math.random() * 10
-            if (song > 0 && song < 4) {
+            if (song > 0 && song < 5) {
                 this.sound.play('sfx_select1');
-            } else if (song > 3 && song < 8) {
+            } else if (song > 4 && song < 8) {
                 this.sound.play('sfx_select2');
             } else {
                 this.sound.play('sfx_select3');
@@ -121,9 +121,9 @@ class Menu extends Phaser.Scene {
             }
 
             let song = Math.random() * 10
-            if (song > 0 && song < 4) {
+            if (song > 0 && song < 5) {
                 this.sound.play('sfx_select1');
-            } else if (song > 3 && song < 8) {
+            } else if (song > 4 && song < 8) {
                 this.sound.play('sfx_select2');
             } else {
                 this.sound.play('sfx_select3');
