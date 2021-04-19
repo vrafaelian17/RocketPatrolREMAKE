@@ -206,19 +206,19 @@ class Play extends Phaser.Scene {
                 if(this.p1Score > 300) {
                     console.log(this.p1Score);
                     this.timeLeft.text = 0;
-                    // this.scoreweb = this.add.tileSprite(
-                    //     0,0,640,64, 'scoreweb'
-                    // ).setOrigin(0,-2.5);
+                    this.scoreweb = this.add.tileSprite(
+                        0,0,640,64, 'web'
+                    ).setOrigin(0,-2.5);
                     this.add.text(game.config.width/2, game.config.height/2, 'WE DID IT!', scoreConfig).setOrigin(0.5);
                 } else {
-                    // this.scoreweb = this.add.tileSprite(
-                    //     0,0,640,64, 'scoreweb'
-                    // ).setOrigin(0,-2.5);
+                    this.scoreweb = this.add.tileSprite(
+                        0,0,640,64, 'web'
+                    ).setOrigin(0,-2.5);
                     this.add.text(game.config.width/2, game.config.height/2, 'NO! JOLYNE GET UP! DONT GIVE UP YET!', scoreConfig).setOrigin(0.5);
                 }
-                // this.scoreweb = this.add.tileSprite(
-                //     0,0,640,64, 'scoreweb'
-                // ).setOrigin(0,-5);
+                this.scoreweb = this.add.tileSprite(
+                    0,0,640,64, 'web'
+                ).setOrigin(0,-5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to REPLAY or <- for TITLE SCREEN', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
             
