@@ -14,6 +14,7 @@ class Play extends Phaser.Scene {
         this.load.image('stoneoceangroup', 'assets/STONEOCEANTEAM.png');  
         this.load.image('diobf', 'assets/PUCCI.png');  
         this.load.image('sky', 'assets/ChangingSky.png');
+        this.load.image('web', 'assets/ScoreWeb.png');
         this.load.image('timehearts', 'assets/TIMEHEARTS.png');
         this.load.image('heart', 'assets/HEART.png');
         this.load.image('famountains', 'assets/FloridaHome.png');
@@ -116,6 +117,9 @@ class Play extends Phaser.Scene {
         //     0x00FF00,
         //     ).setOrigin(0,0);
 
+            this.web = this.add.tileSprite(
+                0,0,640,64, 'web'
+            ).setOrigin(0,-0.6);
 
             // this.scoreweb = this.add.tileSprite(
             //     0,0,640,64, 'scoreweb'

@@ -61,21 +61,21 @@ class Menu extends Phaser.Scene {
             0,0,640,480, 'stoneoceangroup'
             ).setOrigin(0,0);
 
-            this.titleweb = this.add.tileSprite(
-                0,0,640,64, 'scoreweb'
-            ).setOrigin(0,0);
+            // this.titleweb = this.add.tileSprite(
+            //     0,0,640,64, 'scoreweb'
+            // ).setOrigin(0,0);
 
-            this.titleweb = this.add.tileSprite(
-                0,0,640,64, 'scoreweb'
-            ).setOrigin(0,-0.8);
+            // this.titleweb = this.add.tileSprite(
+            //     0,0,640,64, 'scoreweb'
+            // ).setOrigin(0,-0.8);
 
-            this.titleweb = this.add.tileSprite(
-                0,0,640,64, 'scoreweb'
-            ).setOrigin(0,-1.5);
+            // this.titleweb = this.add.tileSprite(
+            //     0,0,640,64, 'scoreweb'
+            // ).setOrigin(0,-1.5);
 
-            this.titleweb = this.add.tileSprite(
-                0,0,640,64, 'scoreweb'
-            ).setOrigin(0,-3.9);
+            // this.titleweb = this.add.tileSprite(
+            //     0,0,640,64, 'scoreweb'
+            // ).setOrigin(0,-3.9);
           //show menu text
           //menuConfig.backgroundColor = '#30D5C8';
             menuConfig.color = 'magenta';
