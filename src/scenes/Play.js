@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.load.image('sky', 'assets/ChangingSky.png');
         this.load.image('timehearts', 'assets/TIMEHEARTS.png');
         this.load.image('heart', 'assets/HEART.png');
-        this.load.image('scoreweb', '.../assets/ScoreWeb.png');
+        this.load.image('scoreweb', 'assets/NewScoreWeb.png');
         this.load.image('famountains', 'assets/FloridaHome.png');
         this.load.image('rocket', 'assets/rocket.png');
         this.load.image('timeorb', 'assets/timeorb.png');
