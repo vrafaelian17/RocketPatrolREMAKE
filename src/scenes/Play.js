@@ -3,6 +3,14 @@ class Play extends Phaser.Scene {
         super("playScene");
     }
 
+    //Victoria Rafaelian
+    //Stone Ocean Battle
+    //April 19, 2021
+    //Around 17 hours to complete.
+    //Credits:
+    //Thank you so much to LiterallyNoOne, WhiteWoods, and UserDestroyer for the background tracks!
+    //Thank you so much to David Productions and Eyes of Heaven for the SFX!
+
     preload() {
         this.load.image('starfield', 'assets/starfield.png');
         this.load.image('sofloor', 'assets/StoneOceanBottom.png');
